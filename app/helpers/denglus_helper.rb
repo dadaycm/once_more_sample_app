@@ -1,0 +1,2 @@
+module DenglusHelper
+end
