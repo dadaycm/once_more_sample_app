@@ -1,9 +1,9 @@
 require 'test_helper'
 
 class DenglusControllerTest < ActionDispatch::IntegrationTest
+
   test "should get new" do
-    get denglus_new_url
+    get login_path
     assert_response :success
   end
-
 end
