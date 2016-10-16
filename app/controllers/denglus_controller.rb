@@ -5,6 +5,7 @@ class DenglusController < ApplicationController
     def create
       user = User.find_by(email: params[:session][:email].downcase)
       if user && user.authenticate(params[:session][:password])
+        puts "[{LHY- denglusCtroller:create]#{params[:session].to_yaml}[LHY}]"
         log_in user
         redirect_to user
       else

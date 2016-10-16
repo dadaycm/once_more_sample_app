@@ -1,7 +1,10 @@
 module DenglusHelper
   # Logs in the given user.
   def log_in(user)
+    # puts "[{LHY:log_in]#{session.inspect}[LHY}]"
     session[:user_id] = user.id
+    puts "[{LHY:log_in 2]#{session[:user_id]}[LHY}]"
+
   end
 
   # Returns the current logged-in user (if any).
@@ -18,5 +21,7 @@ module DenglusHelper
   def log_out
     session.delete(:user_id)
     @current_user = nil
-  end  
+    # puts "[{LHY: logout]#{session}[LHY}]"
+
+  end
 end
