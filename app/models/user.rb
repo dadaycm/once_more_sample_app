@@ -37,4 +37,10 @@ class User < ApplicationRecord
   def forget
     update_attribute(:remember_digest, nil)
   end
+
+  self.per_page = 6
+
 end
+
+# set per_page globally
+WillPaginate.per_page = 6
