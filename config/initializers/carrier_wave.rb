@@ -3,9 +3,9 @@ if Rails.env.production?
     config.fog_credentials = {
       # Configuration for Amazon S3
       :provider              => 'AWS',
-      :aws_access_key_id     => ENV['S3_ACCESS_KEY'],
-      :aws_secret_access_key => ENV['S3_SECRET_KEY']
+      :aws_access_key_id     => 'AKIAJ2ODS6Y5ZFKEZUGQ', #ENV['S3_ACCESS_KEY'],
+      :aws_secret_access_key => '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' #ENV['S3_SECRET_KEY']
     }
-    config.fog_directory     =  ENV['S3_BUCKET']
+    config.fog_directory     =  'photo4heroku' #ENV['S3_BUCKET']
   end
 end
