@@ -7,7 +7,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    logger.info "[LHY]PasswordResetsController::create #{params}"
+    logger.info "[LHY]PasswordResetsController::create #{params.inspect}"
     @user = User.find_by(email: params[:password_reset][:email].downcase)
     if @user
       logger.info "[LHY]#{@user}"
@@ -22,11 +22,11 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
-    logger.info "[LHY]PasswordResetsController::edit #{params}"
+    logger.info "[LHY]PasswordResetsController::edit #{params.inspect}"
   end
 
   def update
-    logger.info "[LHY]PasswordResetsController::update #{params}"
+    logger.info "[LHY]PasswordResetsController::update #{params.inspect}"
     if params[:user][:password].empty?                  # Case (3)
       logger.info "[LHY]case3"
       @user.errors.add(:password, "can't be empty")
