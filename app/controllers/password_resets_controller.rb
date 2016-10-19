@@ -7,10 +7,8 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    logger.info "[LHY]PasswordResetsController::create #{params.inspect}"
     @user = User.find_by(email: params[:password_reset][:email].downcase)
     if @user
-      logger.info "[LHY]#{@user}"
       @user.create_reset_digest
       @user.send_password_reset_email
       flash[:info] = "Email sent with password reset instructions"
@@ -22,22 +20,17 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
-    logger.info "[LHY]PasswordResetsController::edit #{params.inspect}"
   end
 
   def update
-    logger.info "[LHY]PasswordResetsController::update #{params.inspect}"
     if params[:user][:password].empty?                  # Case (3)
-      logger.info "[LHY]case3"
       @user.errors.add(:password, "can't be empty")
       render 'edit'
     elsif @user.update_attributes(user_params)          # Case (4)
-      logger.info "[LHY]case4"
       log_in @user
       flash[:success] = "Password has been reset."
       redirect_to @user
     else
-      logger.info "[LHY]case2"
       render 'edit'                                     # Case (2)
     end
   end
@@ -51,19 +44,13 @@ class PasswordResetsController < ApplicationController
     # Before filters
 
     def get_user
-      logger.info "[LHY]PasswordResetsController::get_user"
       @user = User.find_by(email: params[:email])
-      logger.info "[LHY]@user=#{@user.inspect} "
     end
 
     # Confirms a valid user.
     def valid_user
       unless (@user && @user.activated? &&
               @user.authenticated?(:reset, params[:id]))
-        logger.info "[LHY]PasswordResetsController::valid_user, no pass"
-        logger.info "[LHY]#{params.inspect} "
-        logger.info "[LHY]@user=#{@user.inspect} "
-        logger.info "[LHY]@user.activated=#{@user.activated} "
         redirect_to root_url
       end
     end
