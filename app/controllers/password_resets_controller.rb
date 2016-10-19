@@ -51,7 +51,9 @@ class PasswordResetsController < ApplicationController
     # Before filters
 
     def get_user
+      logger.info "[LHY]PasswordResetsController::get_user"
       @user = User.find_by(email: params[:email])
+      logger.info "[LHY]@user=#{@user.inspect} "
     end
 
     # Confirms a valid user.
@@ -59,8 +61,8 @@ class PasswordResetsController < ApplicationController
       unless (@user && @user.activated? &&
               @user.authenticated?(:reset, params[:id]))
         logger.info "[LHY]PasswordResetsController::valid_user, no pass"
-        logger.info "[LHY]#{params} "
-        logger.info "[LHY]@user=#{@user} "
+        logger.info "[LHY]#{params.inspect} "
+        logger.info "[LHY]@user=#{@user.inspect} "
         logger.info "[LHY]@user.activated=#{@user.activated} "
         redirect_to root_url
       end
