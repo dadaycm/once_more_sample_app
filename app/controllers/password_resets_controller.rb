@@ -59,6 +59,9 @@ class PasswordResetsController < ApplicationController
       unless (@user && @user.activated? &&
               @user.authenticated?(:reset, params[:id]))
         logger.info "[LHY]PasswordResetsController::valid_user, no pass"
+        logger.info "[LHY]#{params} "
+        logger.info "[LHY]@user=#{@user} "
+        logger.info "[LHY]@user.activated=#{@user.activated} "
         redirect_to root_url
       end
     end
