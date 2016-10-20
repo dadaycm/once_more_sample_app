@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
     @user = User.new(name: "Example User", email: "user@example.com",
                      password: "foobar", password_confirmation: "foobar")
   end
-  
+
   test "should be valid" do
     assert @user.valid?
   end
@@ -19,7 +19,7 @@ class UserTest < ActiveSupport::TestCase
   test "email should be present" do
     @user.email = "     "
     assert_not @user.valid?
-  end  
+  end
   test "name should not be too long" do
     @user.name = "a" * 51
     assert_not @user.valid?
@@ -38,7 +38,7 @@ class UserTest < ActiveSupport::TestCase
       assert @user.valid?, "#{valid_address.inspect} should be valid"
     end
   end
-  
+
   test "email validation should reject invalid addresses" do
     invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
                            foo@bar_baz.com foo@bar+baz.com]
@@ -76,4 +76,17 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test "should follow and unfollow a user" do
+    michael = users(:michael)
+    archer  = users(:archer)
+    assert_not michael.following?(archer)
+    michael.follow(archer)
+    assert michael.following?(archer)
+    assert archer.followers.include?(michael)
+    michael.unfollow(archer)
+    assert_not michael.following?(archer)
+  end
+
+
 end
