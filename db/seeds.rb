@@ -1,23 +1,4 @@
 # Users
-
-User.delete_all()
-
-User.create!(name:  "dadaycm",
-             email: "dadaycm@hotmail.com",
-             password:              "00000000",
-             password_confirmation: "00000000",
-             admin:     true,
-             activated: true,
-             activated_at: Time.zone.now)
-
-User.create!(name:  "914319825",
-            email: "914319825@qq.com",
-            password:              "00000000",
-            password_confirmation: "00000000",
-            admin:     true,
-            activated: true,
-            activated_at: Time.zone.now)
-
 User.create!(name:  "Example User",
              email: "example@railstutorial.org",
              password:              "foobar",
