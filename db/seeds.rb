@@ -43,3 +43,11 @@ users = User.order(:created_at).take(6)
   # content = Faker::ChuckNorris.fact
   users.each { |user| user.microposts.create!(content: content) }
 end
+
+# Following guanxis
+users = User.all
+user  = users.first
+following = users[2..4]
+followers = users[6..10]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }
