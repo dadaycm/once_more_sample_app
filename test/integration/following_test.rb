@@ -17,11 +17,11 @@ class FollowingTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "followers page" do
-    get followers_user_path(@user)
-    assert_not @user.followers.empty?
-    assert_match @user.followers.count.to_s, response.body
-    @user.followers.each do |user|
+  test "fans page" do
+    get fans_user_path(@user)
+    assert_not @user.fans.empty?
+    assert_match @user.fans.count.to_s, response.body
+    @user.fans.each do |user|
       assert_select "a[href=?]", user_path(user)
     end
   end

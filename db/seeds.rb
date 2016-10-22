@@ -48,6 +48,6 @@ end
 users = User.all
 user  = users.first
 following = users[2..4]
-followers = users[6..10]
+fans = users[6..10]
 following.each { |followed| user.follow(followed) }
-followers.each { |follower| follower.follow(user) }
+fans.each { |follower| follower.follow(user) }

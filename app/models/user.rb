@@ -7,7 +7,7 @@ class User < ApplicationRecord
                                    foreign_key: "followed_id",
                                    dependent:   :destroy
   has_many :following, through: :active_guanxis,  source: :followed
-  has_many :followers, through: :passive_guanxis, source: :follower
+  has_many :fans, through: :passive_guanxis, source: :follower
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   before_create :create_activation_digest
