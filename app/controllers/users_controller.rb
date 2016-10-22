@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy,
-                                        :following, :fans]
+                                        :superstars, :fans]
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
 
@@ -49,10 +49,10 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  def following
-    @title = "Following"
+  def superstars
+    @title = "superstars"
     @user  = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page])
+    @users = @user.superstars.paginate(page: params[:page])
     render 'show_follow'
   end
 

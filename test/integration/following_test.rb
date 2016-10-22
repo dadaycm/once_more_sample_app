@@ -8,11 +8,11 @@ class FollowingTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
   end
 
-  test "following page" do
-    get following_user_path(@user)
-    assert_not @user.following.empty?
-    assert_match @user.following.count.to_s, response.body
-    @user.following.each do |user|
+  test "superstars page" do
+    get superstars_user_path(@user)
+    assert_not @user.superstars.empty?
+    assert_match @user.superstars.count.to_s, response.body
+    @user.superstars.each do |user|
       assert_select "a[href=?]", user_path(user)
     end
   end
@@ -27,13 +27,13 @@ class FollowingTest < ActionDispatch::IntegrationTest
   end
 
   test "should follow a user the standard way" do
-    assert_difference '@user.following.count', 1 do
+    assert_difference '@user.superstars.count', 1 do
       post guanxis_path, params: { followed_id: @other.id }
     end
   end
 
   test "should follow a user with Ajax" do
-    assert_difference '@user.following.count', 1 do
+    assert_difference '@user.superstars.count', 1 do
       post guanxis_path, xhr: true, params: { followed_id: @other.id }
     end
   end
@@ -41,7 +41,7 @@ class FollowingTest < ActionDispatch::IntegrationTest
   test "should unfollow a user the standard way" do
     @user.follow(@other)
     relationship = @user.active_guanxis.find_by(followed_id: @other.id)
-    assert_difference '@user.following.count', -1 do
+    assert_difference '@user.superstars.count', -1 do
       delete guanxi_path(relationship)
     end
   end
@@ -49,7 +49,7 @@ class FollowingTest < ActionDispatch::IntegrationTest
   test "should unfollow a user with Ajax" do
     @user.follow(@other)
     relationship = @user.active_guanxis.find_by(followed_id: @other.id)
-    assert_difference '@user.following.count', -1 do
+    assert_difference '@user.superstars.count', -1 do
       delete guanxi_path(relationship), xhr: true
     end
   end

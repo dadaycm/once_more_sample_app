@@ -47,7 +47,7 @@ end
 # Following guanxis
 users = User.all
 user  = users.first
-following = users[2..4]
+superstars = users[2..4]
 fans = users[6..10]
-following.each { |followed| user.follow(followed) }
+superstars.each { |followed| user.follow(followed) }
 fans.each { |follower| follower.follow(user) }

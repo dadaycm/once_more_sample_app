@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :passive_guanxis, class_name:  "Guanxi",
                                    foreign_key: "followed_id",
                                    dependent:   :destroy
-  has_many :following, through: :active_guanxis,  source: :followed
+  has_many :superstars, through: :active_guanxis,  source: :followed
   has_many :fans, through: :passive_guanxis, source: :follower
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
@@ -79,9 +79,9 @@ class User < ApplicationRecord
 
   # Returns a user's status feed.
   def feed
-    following_ids = "SELECT followed_id FROM guanxis
+    superstars_ids = "SELECT followed_id FROM guanxis
                      WHERE  follower_id = :user_id"
-    Micropost.where("user_id IN (#{following_ids})
+    Micropost.where("user_id IN (#{superstars_ids})
                      OR user_id = :user_id", user_id: id)
   end
 
@@ -97,7 +97,7 @@ class User < ApplicationRecord
 
   # Returns true if the current user is following the other user.
   def following?(other_user)
-    following.include?(other_user)
+    superstars.include?(other_user)
   end
 
   self.per_page = 6
